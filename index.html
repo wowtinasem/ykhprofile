@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유경화 | 생성형AI 전문 강사</title>
+    <meta name="description" content="생성형AI 전문 강사 유경화 - ChatGPT, 프롬프트 엔지니어링, AI 이미지 생성 실무 교육. 공공기관·기업·대학 300회+ 강의 수행.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --primary: #7C3AED;
+            --primary-hover: #6D28D9;
+            --primary-light: #A78BFA;
+            --bg-light: #F9FAFB;
+            --bg-dark: #111827;
+            --bg-dark2: #1F2937;
+            --text: #1F2937;
+            --text-sub: #6B7280;
+            --text-white: #F9FAFB;
+            --success: #10B981;
+            --card-shadow: 0 4px 24px rgba(124, 58, 237, .08);
+            --radius: 12px;
+            --max-w: 1200px;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            background: var(--bg-light);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-size: 16px
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none
+        }
+
+        .container {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        img {
+            max-width: 100%;
+            display: block
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 0;
+            z-index: 200;
+            background: rgba(255, 255, 255, .85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(124, 58, 237, .08);
+            transition: padding .3s, box-shadow .3s
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .06)
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--bg-dark);
+            letter-spacing: -.5px
+        }
+
+        .nav-logo span {
+            color: var(--primary)
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            align-items: center
+        }
+
+        .nav-links a {
+            color: var(--text-sub);
+            font-size: .9rem;
+            font-weight: 500;
+            transition: color .3s
+        }
+
+        .nav-links a:hover {
+            color: var(--primary)
+        }
+
+        .nav-cta-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: var(--primary);
+            color: #fff !important;
+            font-weight: 700;
+            font-size: .88rem;
+            border-radius: var(--radius);
+            transition: background .3s, transform .3s
+        }
+
+        .nav-cta-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.03)
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: .3s
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-dark)
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, .18), transparent 70%);
+            border-radius: 50%
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: 30%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(167, 139, 250, .1), transparent 70%);
+            border-radius: 50%
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 60px
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(124, 58, 237, .12);
+            border: 1px solid rgba(124, 58, 237, .25);
+            border-radius: 50px;
+            color: var(--primary-light);
+            font-size: .85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp .7s .2s forwards
+        }
+
+        h1.hero-title {
+            font-size: clamp(28px, 4.5vw, 46px);
+            color: #fff;
+            font-weight: 900;
+            line-height: 1.35;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            opacity: 0;
+            animation: fadeUp .7s .35s forwards
+        }
+
+        h1.hero-title .highlight {
+            color: var(--primary-light);
+            position: relative
+        }
+
+        .hero-desc {
+            font-size: clamp(15px, 1.8vw, 18px);
+            color: rgba(255, 255, 255, .6);
+            margin-bottom: 36px;
+            opacity: 0;
+            animation: fadeUp .7s .5s forwards;
+            line-height: 1.7
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: var(--radius);
+            transition: background .3s, transform .3s, box-shadow .3s;
+            box-shadow: 0 8px 30px rgba(124, 58, 237, .3);
+            opacity: 0;
+            animation: fadeUp .7s .65s forwards;
+            min-height: 56px
+        }
+
+        .hero-cta:hover {
+            background: var(--primary-hover);
+            transform: scale(1.03);
+            box-shadow: 0 12px 40px rgba(124, 58, 237, .45);
+            color: #fff
+        }
+
+        /* Hero Photo */
+        .hero-photo {
+            flex: 0 0 380px;
+            position: relative;
+            opacity: 0;
+            animation: fadeUp .7s .4s forwards
+        }
+
+        .hero-photo-inner {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(160deg, rgba(124, 58, 237, .15), rgba(167, 139, 250, .08));
+            border: 2px solid rgba(124, 58, 237, .2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .3), 0 0 80px rgba(124, 58, 237, .1)
+        }
+
+        .hero-photo-inner img {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .hero-photo-glow {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40px;
+            background: radial-gradient(ellipse, rgba(124, 58, 237, .25), transparent);
+            filter: blur(12px)
+        }
+
+        .hero-photo-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(17, 24, 39, .85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 58, 237, .2);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .hero-photo-badge .badge-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0
+        }
+
+        .hero-photo-badge .badge-text {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .7);
+            line-height: 1.4
+        }
+
+        .hero-photo-badge .badge-text strong {
+            color: #fff;
+            font-weight: 700;
+            display: block;
+            font-size: .9rem
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            padding: 60px 0;
+            background: #fff;
+            border-bottom: 1px solid #E5E7EB
+        }
+
+        .stats .container {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px 24px
+        }
+
+        .stat-num {
+            font-size: clamp(32px, 4vw, 44px);
+            color: var(--primary);
+            font-weight: 900
+        }
+
+        .stat-num .suffix {
+            font-size: .55em;
+            color: var(--text-sub)
+        }
+
+        .stat-label {
+            font-size: .88rem;
+            color: var(--text-sub);
+            margin-top: 4px;
+            font-weight: 500
+        }
+
+        /* ===== Section common ===== */
+        .section-tag {
+            color: var(--primary);
+            font-size: .85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .section-title {
+            font-size: clamp(24px, 3.5vw, 36px);
+            font-weight: 900;
+            margin-bottom: 16px;
+            letter-spacing: -.5px
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--text-sub);
+            max-width: 600px
+        }
+
+        /* ===== LOGOS ===== */
+        .logos {
+            padding: 80px 0;
+            background: #fff
+        }
+
+        .logos .container {
+            text-align: center;
+            margin-bottom: 40px
+        }
+
+        .marquee-wrap {
+            overflow: hidden;
+            position: relative;
+            margin: 0 -24px
+        }
+
+        .marquee-wrap::before,
+        .marquee-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2
+        }
+
+        .marquee-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, #fff, transparent)
+        }
+
+        .marquee-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, #fff, transparent)
+        }
+
+        .marquee {
+            display: flex;
+            gap: 16px;
+            animation: scroll 35s linear infinite;
+            width: max-content
+        }
+
+        .marquee:hover {
+            animation-play-state: paused
+        }
+
+        .marquee-rev {
+            animation-direction: reverse
+        }
+
+        .logo-item {
+            flex-shrink: 0;
+            padding: 12px 28px;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            font-size: .88rem;
+            color: var(--text-sub);
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all .3s;
+            background: #fff
+        }
+
+        .logo-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, .1)
+        }
+
+        /* ===== CURRICULUM ===== */
+        .curriculum {
+            padding: 80px 0 100px;
+            background: var(--bg-light)
+        }
+
+        .curriculum .container {
+            text-align: center
+        }
+
+        .curr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+            text-align: left
+        }
+
+        .curr-card {
+            background: #fff;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 36px 28px;
+            transition: transform .3s, border-color .3s, box-shadow .3s
+        }
+
+        .curr-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+            box-shadow: var(--card-shadow)
+        }
+
+        .curr-icon {
+            margin-bottom: 16px;
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(124, 58, 237, .05)
+        }
+
+        .curr-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        .curr-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text)
+        }
+
+        .curr-card p {
+            font-size: .92rem;
+            color: var(--text-sub);
+            line-height: 1.65
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            padding: 80px 0 100px;
+            background: #fff
+        }
+
+        .about .container {
+            text-align: center
+        }
+
+        .about-wrap {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 48px;
+            text-align: left
+        }
+
+        .about-photo {
+            flex: 0 0 280px;
+            height: 340px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
+            border: 3px solid rgba(124, 58, 237, .15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative
+        }
+
+        .about-photo::after {
+            content: '유경화';
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgba(124, 58, 237, .2)
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0
+        }
+
+        .about-info {
+            flex: 1;
+            min-width: 280px
+        }
+
+        .about-info h3 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 6px
+        }
+
+        .about-info .about-title {
+            color: var(--primary);
+            font-size: .95rem;
+            font-weight: 600;
+            margin-bottom: 20px
+        }
+
+        .about-info ul {
+            list-style: none;
+            margin-bottom: 24px
+        }
+
+        .about-info li {
+            padding: 7px 0;
+            font-size: .95rem;
+            position: relative;
+            padding-left: 22px
+        }
+
+        .about-info li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: .75rem;
+            top: 9px
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-sub);
+            transition: all .3s
+        }
+
+        .social-links a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(124, 58, 237, .05);
+            transform: translateY(-2px)
+        }
+
+        /* Book Card */
+        .book-card {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: linear-gradient(135deg, #F5F3FF, #EDE9FE);
+            border: 1px solid rgba(124, 58, 237, .15);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 8px;
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: var(--text)
+        }
+
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, .15)
+        }
+
+        .book-cover {
+            flex: 0 0 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .12)
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            display: block
+        }
+
+        .book-info {
+            flex: 1
+        }
+
+        .book-label {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px
+        }
+
+        .book-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: var(--text)
+        }
+
+        .book-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--primary);
+            transition: gap .3s
+        }
+
+        .book-card:hover .book-link {
+            gap: 10px
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 80px 0 100px;
+            background: var(--bg-dark);
+            color: #fff
+        }
+
+        .testimonials .container {
+            text-align: center
+        }
+
+        .testi-carousel {
+            position: relative;
+            overflow: hidden;
+            margin-top: 48px
+        }
+
+        .testi-track {
+            display: flex;
+            transition: transform .5s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .testi-slide {
+            flex: 0 0 100%;
+            padding: 0 8px
+        }
+
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px
+        }
+
+        .testi-card {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: left;
+            backdrop-filter: blur(8px);
+            transition: border-color .3s
+        }
+
+        .testi-card:hover {
+            border-color: var(--primary-light)
+        }
+
+        .testi-stars {
+            color: #FBBF24;
+            margin-bottom: 12px;
+            font-size: .9rem;
+            letter-spacing: 2px
+        }
+
+        .testi-card p {
+            font-size: .95rem;
+            color: rgba(255, 255, 255, .8);
+            margin-bottom: 20px;
+            line-height: 1.7
+        }
+
+        .testi-author {
+            font-size: .9rem;
+            font-weight: 700;
+            color: #fff
+        }
+
+        .testi-role {
+            font-size: .82rem;
+            color: rgba(255, 255, 255, .5)
+        }
+
+        .testi-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px
+        }
+
+        .testi-nav button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .2);
+            background: transparent;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all .3s
+        }
+
+        .testi-nav button:hover {
+            background: var(--primary);
+            border-color: var(--primary)
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 80px 0 100px;
+            background: var(--bg-light)
+        }
+
+        .faq .container {
+            text-align: center
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 48px auto 0;
+            text-align: left
+        }
+
+        .faq-item {
+            border: 1px solid #E5E7EB;
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color .3s;
+            background: #fff
+        }
+
+        .faq-item.active {
+            border-color: var(--primary)
+        }
+
+        .faq-q {
+            width: 100%;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left
+        }
+
+        .faq-q:hover {
+            color: var(--primary)
+        }
+
+        .faq-q .arrow {
+            font-size: 1.2rem;
+            transition: transform .3s;
+            color: var(--text-sub)
+        }
+
+        .faq-item.active .faq-q .arrow {
+            transform: rotate(180deg);
+            color: var(--primary)
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease, padding .3s;
+            padding: 0 24px
+        }
+
+        .faq-item.active .faq-a {
+            max-height: 300px;
+            padding: 0 24px 20px
+        }
+
+        .faq-a p {
+            font-size: .92rem;
+            color: var(--text-sub);
+            line-height: 1.7
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            padding: 80px 0 100px;
+            background: #fff
+        }
+
+        .contact .container {
+            text-align: center
+        }
+
+        .contact-box {
+            background: var(--bg-dark);
+            border-radius: 24px;
+            padding: 56px 48px;
+            max-width: 600px;
+            margin: 40px auto 0;
+            color: #fff;
+            position: relative;
+            overflow: hidden
+        }
+
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(124, 58, 237, .2), transparent);
+            border-radius: 50%
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            position: relative
+        }
+
+        .contact-box .contact-role {
+            color: rgba(255, 255, 255, .5);
+            font-size: .88rem;
+            margin-bottom: 32px;
+            position: relative
+        }
+
+        .contact-item {
+            margin: 14px 0;
+            font-size: .95rem;
+            color: rgba(255, 255, 255, .8);
+            position: relative
+        }
+
+        .contact-item span {
+            color: rgba(255, 255, 255, .45);
+            margin-right: 10px
+        }
+
+        .contact-cta {
+            display: inline-block;
+            margin-top: 32px;
+            padding: 16px 48px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border-radius: var(--radius);
+            transition: all .3s;
+            min-height: 56px;
+            position: relative
+        }
+
+        .contact-cta:hover {
+            background: var(--primary-hover);
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(124, 58, 237, .35);
+            color: #fff
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 40px 0;
+            background: var(--bg-light);
+            border-top: 1px solid #E5E7EB;
+            text-align: center
+        }
+
+        footer p {
+            font-size: .82rem;
+            color: var(--text-sub)
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 14px
+        }
+
+        .footer-social a {
+            color: var(--text-sub);
+            transition: color .3s;
+            font-size: .88rem
+        }
+
+        .footer-social a:hover {
+            color: var(--primary)
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .4
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, .98);
+                flex-direction: column;
+                padding: 20px 24px;
+                gap: 16px;
+                border-bottom: 1px solid #E5E7EB;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, .06)
+            }
+
+            .nav-links.open {
+                display: flex
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .hero .container {
+                flex-direction: column-reverse;
+                gap: 32px
+            }
+
+            .hero-text {
+                text-align: center
+            }
+
+            .hero-photo {
+                flex: none;
+                width: 260px
+            }
+
+            .hero-photo-badge {
+                display: none
+            }
+
+            .hero {
+                padding: 100px 0 60px
+            }
+
+            .stats .container {
+                gap: 20px
+            }
+
+            .stat-num {
+                font-size: 28px
+            }
+
+            .about-wrap {
+                flex-direction: column;
+                text-align: center
+            }
+
+            .about-photo {
+                flex: none;
+                width: 200px;
+                height: 240px;
+                margin: 0 auto
+            }
+
+            .about-info ul {
+                text-align: left
+            }
+
+            .social-links {
+                justify-content: center
+            }
+
+            .contact-box {
+                padding: 36px 24px
+            }
+
+            .curr-grid {
+                grid-template-columns: 1fr
+            }
+
+            .testi-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(min-width:769px) and (max-width:1024px) {
+            .hero-photo {
+                flex: 0 0 300px
+            }
+
+            .curr-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo">YKH<span>.</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">강사소개</a></li>
+                <li><a href="#curriculum">강의분야</a></li>
+                <li><a href="#testimonials">수강후기</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://forms.gle/t8rLMk7UNMHVb36T8" target="_blank" rel="noopener" class="nav-cta-btn">강의
+                        문의</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-photo">
+                <div class="hero-photo-inner">
+                    <img src="Change.png" alt="유경화 강사 프로필 사진">
+                </div>
+                <div class="hero-photo-glow"></div>
+                <div class="hero-photo-badge">
+                    <div class="badge-icon">🎓</div>
+                    <div class="badge-text"><strong>생성형AI 전문 강사</strong>교육 경력 20년 · 누적 강의 300회+</div>
+                </div>
+            </div>
+            <div class="hero-text">
+                <div class="hero-badge">Generative AI Expert Instructor</div>
+                <h1 class="hero-title">AI 시대, 업무를 효율화하고<br>조직의 <span class="highlight">생산성</span>을 설계합니다.</h1>
+                <p class="hero-desc">공공기관, 학교, 기업까지 — 생성형AI 업무 혁신 교육 300회 이상 진행.<br>실무 중심의 체계적인 AI 교육으로 조직의 디지털 전환을
+                    이끕니다.</p>
+                <a href="https://forms.gle/t8rLMk7UNMHVb36T8" target="_blank" rel="noopener" class="hero-cta">강의
+                    문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats reveal">
+        <div class="container">
+            <div class="stat-item">
+                <div class="stat-num"><span class="counter" data-target="300">0</span><span class="suffix">+회</span>
+                </div>
+                <div class="stat-label">누적 강의 횟수</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num"><span class="counter" data-target="4.9" data-decimal="true">0</span><span
+                        class="suffix">/ 5.0</span></div>
+                <div class="stat-label">고객 만족도</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num"><span class="counter" data-target="20">0</span><span class="suffix">년+</span>
+                </div>
+                <div class="stat-label">교육 경력</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGOS -->
+    <section class="logos reveal" id="logos">
+        <div class="container">
+            <p class="section-tag">Trusted By</p>
+            <h2 class="section-title">함께한 기업과 기관</h2>
+        </div>
+        <div class="marquee-wrap">
+            <div class="marquee" id="marquee1"></div>
+        </div>
+        <div class="marquee-wrap" style="margin-top:14px">
+            <div class="marquee marquee-rev" id="marquee2"></div>
+        </div>
+        <div class="marquee-wrap" style="margin-top:14px">
+            <div class="marquee" id="marquee3"></div>
+        </div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section class="curriculum reveal" id="curriculum">
+        <div class="container">
+            <p class="section-tag">Expertise</p>
+            <h2 class="section-title">강의 분야</h2>
+            <p class="section-desc" style="margin:0 auto">실무에 즉시 적용 가능한 생성형AI 교육 커리큘럼</p>
+            <div class="curr-grid">
+                <div class="curr-card">
+                    <div class="curr-icon"><img src="Image_fx (1).png" alt="생성형AI 활용 업무효율화"></div>
+                    <h3>생성형AI 활용 업무효율화</h3>
+                    <p>ChatGPT, Gemini 등 생성형AI를 활용하여 문서 작성, 데이터 분석, 보고서 자동화 등 반복 업무를 혁신하고 조직의 생산성을 극대화합니다.</p>
+                </div>
+                <div class="curr-card">
+                    <div class="curr-icon"><img src="Image_fx (2).png" alt="바이브코딩 & Agent 자동화"></div>
+                    <h3>바이브코딩 & Agent 자동화</h3>
+                    <p>AI와 함께 코딩하는 새로운 패러다임. 프롬프트 기반 코드 생성으로 비개발자도 웹서비스를 직접 만들고, AI Agent를 활용한 업무 프로세스 자동화까지 구현합니다.</p>
+                </div>
+                <div class="curr-card">
+                    <div class="curr-icon"><img src="Image_fx (4).png" alt="AI 이미지·영상 실무"></div>
+                    <h3>AI 이미지·영상 실무</h3>
+                    <p>Midjourney, DALL-E, NanoBanana, Runway 등을 활용한 고품질 이미지 및 영상 제작. 마케팅 콘텐츠, 썸네일, 광고영상제작까지 AI로 빠르게
+                        제작하는 실무 역량을
+                        키웁니다.</p>
+                </div>
+                <div class="curr-card">
+                    <div class="curr-icon"><img src="Image_fx (3).png" alt="AI 도입 기업컨설팅"></div>
+                    <h3>AI 도입 기업컨설팅</h3>
+                    <p>조직 맞춤형 AI 도입 전략 수립부터 실행까지. 업종·직무별 AI 활용 로드맵 설계와 사내 AI 문화 정착을 위한 체계적인 컨설팅을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about reveal" id="about">
+        <div class="container">
+            <p class="section-tag">About</p>
+            <h2 class="section-title">강사 소개</h2>
+            <div class="about-wrap">
+                <div class="about-photo">
+                    <img src="image (1).png" alt="유경화 프로필 사진">
+                </div>
+                <div class="about-info">
+                    <h3>유경화</h3>
+                    <p class="about-title">생성형AI 전문 강사 · 교육 컨설턴트</p>
+                    <ul>
+                        <li>(주)드림정보 미래전략총괄 이사</li>
+                        <li>한국AI콘텐츠연구소 교육이사 겸 수석강사</li>
+                        <li>KBS스포츠예술과학원 겸임교수</li>
+                        <li>인공지능 NCS, KDT 강사</li>
+                        <li>생성형AI 활용 업무혁신 교육 전문 (3년+)</li>
+                        <li>교육 경력 20년 이상 · 누적 강의 300회+</li>
+                        <li>공공기관 / 기업 / 대학 AI교육 다수 수행</li>
+                    </ul>
+                    <a href="https://www.yes24.com/product/goods/142072569" target="_blank" rel="noopener"
+                        class="book-card">
+                        <div class="book-cover">
+                            <img src="https://image.yes24.com/goods/142072569/XL" alt="1400만 직장인을 위한 챗GPT 비즈니스 프롬프트 표지">
+                        </div>
+                        <div class="book-info">
+                            <div class="book-label">📖 저서</div>
+                            <div class="book-title">1400만 직장인을 위한<br>챗GPT 비즈니스 프롬프트</div>
+                            <div class="book-link">Yes24에서 보기 →</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials reveal" id="testimonials">
+        <div class="container">
+            <p class="section-tag" style="color:var(--primary-light)">Testimonials</p>
+            <h2 class="section-title" style="color:#fff">수강 후기</h2>
+            <p class="section-desc" style="margin:0 auto;color:rgba(255,255,255,.6)">실제 수강생분들의 생생한 후기</p>
+            <div class="testi-carousel">
+                <div class="testi-track" id="testiTrack">
+                    <div class="testi-slide">
+                        <div class="testi-grid">
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"실무에 바로 적용할 수 있는 구체적인 강의였습니다. 수강 후 팀 전체의 업무 효율이 눈에 띄게 향상되었습니다."</p>
+                                <div class="testi-author">김○○ 팀장</div>
+                                <div class="testi-role">○○기업 디지털혁신팀</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"AI에 대한 막연한 두려움이 있었는데, 강의를 통해 자신감을 갖게 되었습니다. 쉽고 체계적인 설명이 인상적이었습니다."</p>
+                                <div class="testi-author">박○○ 교수</div>
+                                <div class="testi-role">○○대학교 교육학과</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"공무원 대상 교육이라 걱정했는데, 현장에 맞춘 맞춤형 콘텐츠 덕분에 만족도가 매우 높았습니다."</p>
+                                <div class="testi-author">이○○ 사무관</div>
+                                <div class="testi-role">○○부처 정보화담당관실</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-grid">
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"처음 접하는 분야였지만, 단계별로 쉽게 설명해주셔서 바로 활용할 수 있었습니다. 강력 추천합니다!"</p>
+                                <div class="testi-author">정○○ 대리</div>
+                                <div class="testi-role">○○그룹 기획실</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"우리 기관 교직원 200명 대상 교육이었는데, 커스터마이징된 콘텐츠로 참여도가 매우 높았습니다."</p>
+                                <div class="testi-author">최○○ 과장</div>
+                                <div class="testi-role">○○시청 정보화추진과</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"수강 후 보고서 작성 시간이 절반으로 줄었습니다. 실질적인 변화를 느낄 수 있어 감사합니다."</p>
+                                <div class="testi-author">한○○ 연구원</div>
+                                <div class="testi-role">○○연구소</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-grid">
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"바이브코딩 강의를 듣고 코딩 경험 없는 저도 업무용 웹 도구를 직접 만들었습니다. AI Agent 자동화까지 배워서 반복 업무가 사라졌어요!"</p>
+                                <div class="testi-author">윤○○ 주임</div>
+                                <div class="testi-role">○○공사 경영지원팀</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"AI 이미지·영상 교육 후 광고 콘텐츠 제작 비용이 크게 줄었습니다. NanoBanana로 만든 영상 퀄리티에 팀원들 모두 놀랐습니다."</p>
+                                <div class="testi-author">송○○ 매니저</div>
+                                <div class="testi-role">○○기업 마케팅팀</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"AI 도입 컨설팅을 통해 우리 조직에 맞는 로드맵을 명확하게 수립할 수 있었습니다. 현장 경험이 풍부한 강사님 덕분에 실행력 있는 전략이 나왔습니다."
+                                </p>
+                                <div class="testi-author">장○○ 부장</div>
+                                <div class="testi-role">○○법인 전략기획실</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-grid">
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"강사님의 전달력이 정말 탁월합니다. 어려운 AI 개념도 비유와 실습을 통해 누구나 이해할 수 있도록 풀어주셔서, 교육 후 수강생들의 만족도 설문이 역대
+                                    최고점을 기록했습니다."</p>
+                                <div class="testi-author">임○○ 담당관</div>
+                                <div class="testi-role">○○교육청 미래교육과</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"3시간이 10분처럼 느껴질 정도로 몰입도가 높은 강의였습니다. 강사님의 에너지와 전달력 덕분에 50대 이상 수강생분들도 끝까지 집중하며 즐겁게
+                                    참여하셨습니다."</p>
+                                <div class="testi-author">오○○ 팀장</div>
+                                <div class="testi-role">○○진흥원 인재개발팀</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
+                                <p>"ChatGPT와 Gemini를 활용한 업무 자동화 강의 덕분에 매주 반복하던 보고서 작성이 자동화되었습니다. 팀 전체 생산성이 체감될 만큼
+                                    올라갔습니다."</p>
+                                <div class="testi-author">신○○ 과장</div>
+                                <div class="testi-role">○○기관 정보화추진팀</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-nav">
+                <button id="testiPrev" aria-label="이전 후기">◀</button>
+                <button id="testiNext" aria-label="다음 후기">▶</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq reveal" id="faq">
+        <div class="container">
+            <p class="section-tag">FAQ</p>
+            <h2 class="section-title">자주 묻는 질문</h2>
+            <div class="faq-list">
+                <div class="faq-item"><button class="faq-q">어떤 분들이 교육 대상인가요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>공공기관 공무원, 기업 임직원, 대학 교직원 및 학생, 경영자 등 AI를 업무에 활용하고 싶은 모든 분들에게 적합합니다. 코딩이나 AI에 대한 사전 지식이 전혀 없어도
+                            참여 가능합니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">어떤 강의 주제를 다루나요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>크게 4가지 분야를 다룹니다. ① ChatGPT·Gemini를 활용한 생성형AI 업무효율화 ② 바이브코딩 & AI Agent 자동화 ③
+                            Midjourney·NanoBanana 등을 활용한 AI 이미지·영상 실무 ④ AI 도입 기업컨설팅. 기관의 필요에 따라 주제를 조합하여 맞춤 설계할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">바이브코딩은 비개발자도 수강할 수 있나요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>네, 바이브코딩은 코딩 경험이 없는 비개발자를 위한 교육입니다. AI에게 프롬프트로 지시하여 코드를 생성하는 방식이기 때문에, 프로그래밍 경험 없이도 업무용 웹 도구와
+                            자동화 시스템을 직접 만들 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">강의는 어떤 방식으로 진행되나요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>대면/비대면 모두 가능하며, 이론 설명과 실습을 병행하는 인터랙티브 방식으로 진행됩니다. 수강생이 직접 AI 도구를 사용해보는 체험형 교육을 지향하며, 기관의 환경과
+                            수준에 맞춰 유연하게 조정합니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">기업/기관 단체 교육도 가능한가요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>물론입니다. 공공기관, 기업, 대학 등 300회 이상의 단체 교육 경험을 바탕으로 조직의 업종·직무에 맞춘 맞춤형 프로그램을 제공합니다. AI 도입 컨설팅과 연계한
+                            장기 교육 과정도 운영 가능합니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">교육 시간과 커리큘럼은 어떻게 되나요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>기본 2~4시간 단위로 구성되며, 기관의 요청에 따라 심화 과정(8~16시간)이나 정규 과정도 가능합니다. NCS, KDT 기반의 체계적인 커리큘럼을 보유하고 있으며,
+                            사전 협의를 통해 맞춤 설계해드립니다.</p>
+                    </div>
+                </div>
+                <div class="faq-item"><button class="faq-q">수료증이 발급되나요?<span class="arrow">▼</span></button>
+                    <div class="faq-a">
+                        <p>네, 교육 완료 후 수료증을 발급해드립니다. 기관 요청 시 별도 양식으로도 제공 가능하며, NCS·KDT 과정의 경우 해당 기준에 맞는 공식 수료증이 발급됩니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact reveal" id="contact">
+        <div class="container">
+            <p class="section-tag">Contact</p>
+            <h2 class="section-title">강의 문의</h2>
+            <div class="contact-box">
+                <h3>유경화</h3>
+                <p class="contact-role">한국AI콘텐츠연구소 교육이사 겸 수석강사<br>(주)드림정보 미래전략총괄 이사</p>
+                <div class="contact-item"><span>📧</span> wowtinasem@gmail.com</div>
+                <div class="contact-item"><span>📱</span> 010-3409-6116</div>
+                <a href="https://forms.gle/t8rLMk7UNMHVb36T8" target="_blank" rel="noopener" class="contact-cta">강의
+                    문의하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>© 2026 유경화. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // === Hamburger ===
+        document.getElementById('hamburger').onclick = function () { document.getElementById('navLinks').classList.toggle('open') };
+        document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+
+        // === Nav scroll effect ===
+        window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50) });
+
+        // === Marquee ===
+        const r1 = ['한국통계진흥원', '한국자산관리공사', '농업정책보험금융원', '(사)한국소프트웨어저작권협회', '농림수산식품교육문화정보원', '뉴스웨이', '서울신문', '한국언론진흥재단', 'KDG', '서울특별시교육청'];
+        const r2 = ['세종특별자치시교육청', '충청남도교육청', '고려대학교', '세종여성경제인협회', '대구소방안전본부', '문경농업기술센터', '충청남도인재개발원', '충북여성경영인연합', '괴산군', '남서울대학교'];
+        const r3 = ['서울대학교', '부경대학교', '국립농수산대학교', '국립공주대학교', '호서대학교', '서울중부교육지원청', '경기도교육청', '숙명여자대학교', '안동대학교', '대전광역시교육청'];
+        function fillMarquee(el, arr) { el.innerHTML = arr.concat(arr).map(n => '<div class="logo-item">' + n + '</div>').join('') }
+        fillMarquee(document.getElementById('marquee1'), r1);
+        fillMarquee(document.getElementById('marquee2'), r2);
+        fillMarquee(document.getElementById('marquee3'), r3);
+
+        // === Counter animation ===
+        const counters = document.querySelectorAll('.counter');
+        const cio = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { const el = e.target, t = parseFloat(el.dataset.target), dec = el.dataset.decimal === 'true', dur = 2000, start = performance.now(); const step = now => { const p = Math.min((now - start) / dur, 1); el.textContent = dec ? (t * p).toFixed(1) : Math.floor(t * p); if (p < 1) requestAnimationFrame(step) }; requestAnimationFrame(step); cio.unobserve(el) } }) }, { threshold: .5 });
+        counters.forEach(c => cio.observe(c));
+
+        // === Reveal on scroll ===
+        const ro = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target) } }) }, { threshold: .12 });
+        document.querySelectorAll('.reveal').forEach(r => ro.observe(r));
+
+        // === Testimonial Carousel ===
+        (function () {
+            const track = document.getElementById('testiTrack');
+            const slides = track.children; let idx = 0;
+            function go(i) { idx = ((i % slides.length) + slides.length) % slides.length; track.style.transform = 'translateX(-' + idx * 100 + '%)' }
+            document.getElementById('testiPrev').onclick = () => go(idx - 1);
+            document.getElementById('testiNext').onclick = () => go(idx + 1);
+            setInterval(() => go(idx + 1), 6000);
+        })();
+
+        // === FAQ Accordion ===
+        document.querySelectorAll('.faq-q').forEach(btn => {
+            btn.onclick = function () {
+                const item = this.parentElement; const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
