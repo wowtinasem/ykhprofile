@@ -777,8 +777,9 @@
         .profile-toggle {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 9px;
-            margin-top: 44px;
+            width: 100%;
             padding: 14px 28px;
             background: var(--primary);
             color: #fff;
@@ -788,7 +789,7 @@
             border-radius: var(--radius);
             cursor: pointer;
             transition: background .3s, transform .3s, box-shadow .3s;
-            box-shadow: 0 8px 30px rgba(124, 58, 237, .25)
+            box-shadow: 0 8px 24px rgba(124, 58, 237, .22)
         }
 
         .profile-toggle:hover {
@@ -896,19 +897,27 @@
 
         .about-wrap {
             display: flex;
-            gap: 60px;
-            align-items: center;
+            gap: 48px;
+            align-items: flex-start;
             flex-wrap: wrap;
             margin-top: 48px;
             text-align: left
         }
 
+        /* 사진 + 이력 보기 버튼을 묶는 왼쪽 칼럼 */
+        .about-aside {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px
+        }
+
         .about-photo {
-            flex: 0 0 280px;
-            height: 340px;
-            border-radius: 20px;
+            width: 100%;
+            height: 380px;
+            border-radius: 16px;
             background: linear-gradient(135deg, #EDE9FE, #DDD6FE);
-            border: 3px solid rgba(124, 58, 237, .15);
+            border: 1px solid rgba(124, 58, 237, .18);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -940,35 +949,47 @@
         .about-info h3 {
             font-size: 1.8rem;
             font-weight: 900;
-            margin-bottom: 6px
+            margin-bottom: 4px
         }
 
         .about-info .about-title {
             color: var(--primary);
             font-size: .95rem;
             font-weight: 600;
-            margin-bottom: 20px
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #ECECF1
         }
 
         .about-info ul {
             list-style: none;
-            margin-bottom: 24px
+            margin: 0 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px
         }
 
         .about-info li {
-            padding: 7px 0;
-            font-size: .95rem;
-            position: relative;
-            padding-left: 22px
+            padding: 5px 0 5px 20px;
+            font-size: .93rem;
+            line-height: 1.5;
+            color: var(--text);
+            position: relative
         }
 
         .about-info li::before {
-            content: '✦';
+            content: '';
             position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-size: .75rem;
-            top: 9px
+            left: 2px;
+            top: .72em;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary)
+        }
+
+        .about-info li b {
+            font-weight: 600
         }
 
         .social-links {
@@ -1000,24 +1021,25 @@
         .book-card {
             display: flex;
             align-items: center;
-            gap: 24px;
-            background: linear-gradient(135deg, #F5F3FF, #EDE9FE);
-            border: 1px solid rgba(124, 58, 237, .15);
-            border-radius: 16px;
-            padding: 24px;
-            margin-top: 8px;
-            transition: transform .3s, box-shadow .3s;
+            gap: 18px;
+            background: #FAF9FF;
+            border: 1px solid #ECECF1;
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-top: 4px;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
             text-decoration: none;
             color: var(--text)
         }
 
         .book-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(124, 58, 237, .15)
+            transform: translateY(-3px);
+            border-color: rgba(124, 58, 237, .3);
+            box-shadow: 0 8px 26px rgba(124, 58, 237, .12)
         }
 
         .book-cover {
-            flex: 0 0 100px;
+            flex: 0 0 78px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, .12)
@@ -1043,10 +1065,10 @@
         }
 
         .book-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 800;
             line-height: 1.4;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--text)
         }
 
@@ -1459,18 +1481,23 @@
 
             .about-wrap {
                 flex-direction: column;
+                align-items: center;
                 text-align: center
             }
 
-            .about-photo {
+            .about-aside {
                 flex: none;
-                width: 200px;
-                height: 240px;
-                margin: 0 auto
+                width: 280px;
+                max-width: 100%
             }
 
-            .about-info ul {
-                text-align: left
+            .about-photo {
+                height: 340px
+            }
+
+            .about-info {
+                text-align: left;
+                width: 100%
             }
 
             .social-links {
@@ -1722,23 +1749,29 @@
             <p class="section-tag">About</p>
             <h2 class="section-title">강사 소개</h2>
             <div class="about-wrap">
-                <div class="about-photo">
-                    <picture>
-                        <source srcset="youphoto-web.webp" type="image/webp">
-                        <img src="youphoto-web.png" alt="유경화 프로필 사진">
-                    </picture>
+                <div class="about-aside">
+                    <div class="about-photo">
+                        <picture>
+                            <source srcset="youphoto-web.webp" type="image/webp">
+                            <img src="youphoto-web.png" alt="유경화 프로필 사진">
+                        </picture>
+                    </div>
+                    <button type="button" class="profile-toggle" id="profileToggle" aria-haspopup="dialog" aria-controls="profileOverlay">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                        강사 이력 한눈에 보기
+                    </button>
                 </div>
                 <div class="about-info">
                     <h3>유경화</h3>
                     <p class="about-title">생성형AI 전문 강사 · 교육 컨설턴트</p>
                     <ul>
-                        <li>(주)드림정보 미래전략총괄 이사</li>
-                        <li>한국AI콘텐츠연구소 교육이사 겸 수석강사</li>
-                        <li>KBS스포츠예술과학원 겸임교수</li>
-                        <li>인공지능 NCS, KDT 강사</li>
+                        <li><b>(주)드림정보</b> 미래전략총괄 이사</li>
+                        <li><b>한국AI콘텐츠연구소</b> 교육이사 겸 수석강사</li>
+                        <li><b>KBS스포츠예술과학원</b> 겸임교수</li>
+                        <li>인공지능 NCS · KDT 강사</li>
                         <li>생성형AI 활용 업무혁신 교육 전문 (3년+)</li>
-                        <li>교육 경력 20년 이상 · 누적 강의 300회+</li>
-                        <li>공공기관 / 기업 / 대학 AI교육 다수 수행</li>
+                        <li>교육 경력 20년+ · 누적 강의 300회+</li>
+                        <li>공공기관 · 기업 · 대학 AI교육 다수 수행</li>
                     </ul>
                     <a href="https://www.yes24.com/product/goods/142072569" target="_blank" rel="noopener"
                         class="book-card">
@@ -1751,13 +1784,8 @@
                             <div class="book-link">Yes24에서 보기 →</div>
                         </div>
                     </a>
-
                 </div>
             </div>
-            <button type="button" class="profile-toggle" id="profileToggle" aria-haspopup="dialog" aria-controls="profileOverlay">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                강사 이력 한눈에 보기
-            </button>
         </div>
     </section>
 
@@ -1787,10 +1815,20 @@
                         <div class="testi-grid">
                             <div class="testi-card">
                                 <div class="testi-stars">★★★★★</div>
+                                <p>"1,300여 명이 참여한 대규모 실무 교육이었는데도, 현장에서 바로 쓸 수 있는 내용으로 알차게 채워 주셨습니다. 이론에 그치지 않고 다음 날 업무에 곧장 적용할 수 있어 정말 유익했다는 평이 많았습니다."</p>
+                                <div class="testi-author">○○ 주무관</div>
+                                <div class="testi-role">○○기관 교육 담당</div>
+                            </div>
+                            <div class="testi-card">
+                                <div class="testi-stars">★★★★★</div>
                                 <p>"실무에 바로 적용할 수 있는 구체적인 강의였습니다. 수강 후 팀 전체의 업무 효율이 눈에 띄게 향상되었습니다."</p>
                                 <div class="testi-author">김○○ 팀장</div>
                                 <div class="testi-role">○○기업 디지털혁신팀</div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="testi-slide">
+                        <div class="testi-grid">
                             <div class="testi-card">
                                 <div class="testi-stars">★★★★★</div>
                                 <p>"AI에 대한 막연한 두려움이 있었는데, 강의를 통해 자신감을 갖게 되었습니다. 쉽고 체계적인 설명이 인상적이었습니다."</p>
