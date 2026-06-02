@@ -773,6 +773,103 @@
             text-align: center
         }
 
+        /* 강사 이력 펼쳐보기 토글 + 전체화면 뷰어 */
+        .profile-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 44px;
+            padding: 14px 28px;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: .95rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background .3s, transform .3s, box-shadow .3s;
+            box-shadow: 0 8px 30px rgba(124, 58, 237, .25)
+        }
+
+        .profile-toggle:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(124, 58, 237, .35)
+        }
+
+        .profile-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round
+        }
+
+        .profile-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(17, 24, 39, .94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.2vmin;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+            cursor: zoom-out
+        }
+
+        .profile-overlay.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .profile-overlay img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+            transform: scale(.97);
+            transition: transform .3s ease
+        }
+
+        .profile-overlay.open img {
+            transform: scale(1)
+        }
+
+        .profile-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, .15);
+            color: #fff;
+            font-size: 1.7rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s
+        }
+
+        .profile-close:hover {
+            background: rgba(255, 255, 255, .32)
+        }
+
+        body.no-scroll {
+            overflow: hidden
+        }
+
         .about-wrap {
             display: flex;
             gap: 60px;
@@ -1634,8 +1731,21 @@
 
                 </div>
             </div>
+            <button type="button" class="profile-toggle" id="profileToggle" aria-haspopup="dialog" aria-controls="profileOverlay">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                강사 이력 한눈에 보기
+            </button>
         </div>
     </section>
+
+    <!-- 강사 이력 전체화면 뷰어 -->
+    <div class="profile-overlay" id="profileOverlay" role="dialog" aria-modal="true" aria-label="강사 상세 이력">
+        <button type="button" class="profile-close" id="profileClose" aria-label="닫기">&times;</button>
+        <picture>
+            <source srcset="aaa-web.webp" type="image/webp">
+            <img src="aaa.png" alt="유경화 강사 상세 이력 — 전공경력, 강의·활동, 자격·수상, 저서">
+        </picture>
+    </div>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials reveal" id="testimonials">
@@ -1865,6 +1975,21 @@
                 if (!wasActive) item.classList.add('active');
             }
         });
+
+        // === 강사 이력 전체화면 뷰어 ===
+        (function () {
+            const overlay = document.getElementById('profileOverlay');
+            const toggle = document.getElementById('profileToggle');
+            const closeBtn = document.getElementById('profileClose');
+            function open() { overlay.classList.add('open'); document.body.classList.add('no-scroll'); }
+            function close() { overlay.classList.remove('open'); document.body.classList.remove('no-scroll'); }
+            toggle.addEventListener('click', open);
+            closeBtn.addEventListener('click', close);
+            // 배경(이미지 바깥) 클릭 시 닫기
+            overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+            // ESC로 닫기
+            document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
+        })();
     </script>
 </body>
 
