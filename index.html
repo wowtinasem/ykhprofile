@@ -1133,13 +1133,12 @@
         /* Book Card */
         .book-card {
             display: flex;
-            align-items: center;
-            gap: 18px;
+            flex-direction: column;
+            gap: 16px;
             background: #FAF9FF;
             border: 1px solid #ECECF1;
             border-radius: 14px;
-            padding: 18px 20px;
-            margin-top: 4px;
+            padding: 22px;
             transition: transform .3s, box-shadow .3s, border-color .3s;
             text-decoration: none;
             color: var(--text)
@@ -1152,10 +1151,10 @@
         }
 
         .book-cover {
-            flex: 0 0 78px;
+            width: 150px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, .12)
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .15)
         }
 
         .book-cover img {
@@ -1882,6 +1881,17 @@
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
                         강사 이력 한눈에 보기
                     </button>
+                    <a href="https://www.yes24.com/product/goods/142072569" target="_blank" rel="noopener"
+                        class="book-card">
+                        <div class="book-cover">
+                            <img src="https://image.yes24.com/goods/142072569/XL" alt="1400만 직장인을 위한 챗GPT 비즈니스 프롬프트 표지">
+                        </div>
+                        <div class="book-info">
+                            <div class="book-label">📖 저서</div>
+                            <div class="book-title">1400만 직장인을 위한<br>챗GPT 비즈니스 프롬프트</div>
+                            <div class="book-link">Yes24에서 보기 →</div>
+                        </div>
+                    </a>
                 </div>
                 <div class="about-info">
                     <h3>유경화</h3>
@@ -1897,17 +1907,6 @@
                         <li>교육 경력 20년+ · 누적 강의 300회+</li>
                         <li>공공기관 · 기업 · 대학 AI교육 다수 수행</li>
                     </ul>
-                    <a href="https://www.yes24.com/product/goods/142072569" target="_blank" rel="noopener"
-                        class="book-card">
-                        <div class="book-cover">
-                            <img src="https://image.yes24.com/goods/142072569/XL" alt="1400만 직장인을 위한 챗GPT 비즈니스 프롬프트 표지">
-                        </div>
-                        <div class="book-info">
-                            <div class="book-label">📖 저서</div>
-                            <div class="book-title">1400만 직장인을 위한<br>챗GPT 비즈니스 프롬프트</div>
-                            <div class="book-link">Yes24에서 보기 →</div>
-                        </div>
-                    </a>
                 </div>
             </div>
         </div>
